@@ -9,8 +9,28 @@ on:
       environment:
         description: 'Select the environment'
         required: true
+        type: choice
+        options:
+          - production
+          - staging
+          - development
 
 jobs:
+  validate-branch:
+    runs-on: ubuntu-latest
+    outputs:
+      is_valid: ${{ steps.check-branch.outputs.is_valid }}
+    steps:
+      - name: Validate release branch
+        id: check-branch
+        run: |
+          if [[ "${{ github.event.inputs.release_branch }}" =~ ^release\/.* ]]; then
+            echo "is_valid=true" >> $GITHUB_ENV
+          else
+            echo "is_valid=false" >> $GITHUB_ENV
+            echo "::error::The release branch must start with 'release/'"
+            exit 1
+  
   deploy:
     name: Deploy to Environment
     runs-on: ubuntu-latest
