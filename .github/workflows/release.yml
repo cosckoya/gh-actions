@@ -1,4 +1,4 @@
-name: Deploy Release Branch
+name: Release
 
 on:
   workflow_dispatch:
@@ -17,7 +17,7 @@ on:
 
 jobs:
   validate-branch:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER }}
     outputs:
       is_valid: ${{ steps.check-branch.outputs.is_valid }}
     steps:
@@ -31,13 +31,14 @@ jobs:
             echo "::error::The release branch must start with 'release/'"
             exit 1
   
-  deploy:
-    name: Deploy to Environment
-    runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.event.inputs.environment }}  # User selects the environment
+  display-variables:
+    name: Check Variables and Secrets
+    runs-on: ${{ vars.RUNNER }}
+    needs: validate-branch
+    if: needs.validate-branch.outputs.is_valid == 'true'
+    environment: ${{ github.event.inputs.environment }}  # User selects the environment
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.release_branch }}
+    - name: Show me the money!
+      run: |
+        echo "repository variable : ${{ env.VARIABLE }}"
+      
