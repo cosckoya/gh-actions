@@ -14,12 +14,8 @@ on:
           - production
           - staging
           - development
-env:
-  # Setting an environment variable with the value of a configuration variable
-  env_var: ${{ github.event.inputs.environment }}
 
 jobs:
-
 #  validate-branch:
 #    runs-on: ${{ vars.RUNNER }}
 #    outputs:
@@ -45,5 +41,4 @@ jobs:
     steps:
     - name: Show me the money!
       run: |
-        echo "Variable: ${{ env.VARIABLE }}"
         echo "Variable: ${{ vars.VARIABLE }}"      
