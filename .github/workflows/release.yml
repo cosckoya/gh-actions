@@ -24,13 +24,13 @@ jobs:
       - name: Validate release branch
         id: check-branch
         run: |
-          if [[ "${{ github.event.inputs.release_branch }}" =~ ^release\/.* ]]; then
+          if [[ "${GITHUB_EVENT_INPUTS_RELEASE_BRANCH}" =~ ^release\/.* ]]; then
             echo "is_valid=true" >> $GITHUB_ENV
           else
             echo "is_valid=false" >> $GITHUB_ENV
             echo "::error::The release branch must start with 'release/'"
             exit 1
-  
+          fi
   display-variables:
     name: Check Variables and Secrets
     runs-on: ${{ vars.RUNNER }}
