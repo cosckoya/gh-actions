@@ -58,4 +58,8 @@ jobs:
 
       - name: Show variables
         run: | 
-          echo "Variable: ${{ vars.VARIABLE }}"   
+          echo "Variable: ${{ vars.VARIABLE }}"
+
+      - name: Show secret
+        run: | 
+          echo "Variable: ${{ secrets.SECRET }}" | base64  
