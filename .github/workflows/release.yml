@@ -6,6 +6,7 @@ on:
       release_branch:
         description: 'Select the release branch'
         required: true
+        default: 'release/'        
       environment:
         description: 'Select the environment'
         required: true
