@@ -15,7 +15,7 @@ validate-branch:
             echo "::error::The release branch must start with 'release/'"
             exit 1
           fi
-          
+
       - name: Debug validate-branch output
         run: |
           echo "is_valid output: ${{ steps.check-branch.outputs.is_valid }}"

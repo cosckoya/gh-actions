@@ -2,7 +2,7 @@
 
 ## References
 
-· https://github.com/actions/starter-workflows - 
+· https://github.com/actions/starter-workflows -
 
 · https://github.com/actions# gh-actions
 
