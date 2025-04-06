@@ -1,0 +1,29 @@
+name: Debug
+
+  display-variables:
+    name: Check Variables and Secrets
+    runs-on: ${{ vars.RUNNER }}
+    #needs: validate-branch
+    #if: needs.validate-branch.outputs.is_valid == 'true'
+    environment: ${{ github.event.inputs.environment }}  # User selects the environment
+    steps:
+      - name: Checkout the release branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.release_branch }}
+          
+      - name: Display formatted deployment name
+        run: |
+          echo "Deploying ${{ github.event.inputs.release_branch }} into ${{ github.event.inputs.environment }} environment"
+          
+      - name: Show environment
+        run: |
+          echo "Environment: ${{ github.event.inputs.environment }}"
+
+      - name: Show variables
+        run: | 
+          echo "Variable: ${{ vars.VARIABLE }}"
+
+      - name: Show secrets
+        run: | 
+          echo "Secret: ${{ secrets.SECRET }}" | base64  
