@@ -1,6 +1,8 @@
 name: Deploy Release
 
 on:
+#  push:
+#    branches: [ $default-branch ]
   workflow_dispatch:
     inputs:
       release_branch:
@@ -17,3 +19,9 @@ on:
           - development
 
 jobs:
+  greet:
+    runs-on: ${{ vars.RUNNER }}
+    steps:
+    - name: Send greeting
+      #run: echo "Hello ${{ inputs.name }}"
+      run: echo "Hello ${{ github.event.inputs.release_branch }}"
